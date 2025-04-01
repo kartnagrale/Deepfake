@@ -1,0 +1,1 @@
+{"name":"Local: abc","url":"c:\\Users\\karti\\OneDrive\\Desktop\\Deepfake\\abc.cpp","tests":[{"id":1743258122834,"input":"4\n3\n5 3 9\n2\n3 2\n4\n1 2 2 1\n5\n5 4 3 2 9\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\karti\\OneDrive\\Desktop\\Deepfake\\abc.cpp","group":"local","local":true}
