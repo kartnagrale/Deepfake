@@ -3,19 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deepfake Detection</title>
+    <title>Deepfake Image Detector</title>
+    <link rel="stylesheet" href="static\style.css">
 </head>
 <body>
-    <h1>Welcome to Deepfake Detection</h1>
-    
-    <form action="/predict" method="post" enctype="multipart/form-data">
-        <label for="file">Upload an Image:</label>
-        <input type="file" name="file" accept="image/*" required>
-        <button type="submit">Detect</button>
-    </form>
+    <div class="container">
+        <!-- Left Section (Model Training) -->
+        <div class="left-section">
+            <h2>Upload Dataset to Train Images</h2>
+            <input type="file" id="realImages" multiple accept="image/*">
+            <label for="realImages" class="btn">Upload Real Images</label>
+            
+            <input type="file" id="fakeImages" multiple accept="image/*">
+            <label for="fakeImages" class="btn">Upload Fake Images</label>
+            
+            <button onclick="trainModel()">Build Model</button>
+            <div id="trainingResults"></div>
+        </div>
 
-    {% if prediction is not none %}
-        <h2>Result: {{ prediction }}</h2>
-    {% endif %}
+        <!-- Right Section (Prediction) -->
+        <div class="right-section">
+            <h2>Upload Model and Test an Image</h2>
+            <input type="file" id="modelUpload" accept=".pth">
+            <label for="modelUpload" class="btn">Upload Model</label>
+            
+            <input type="file" id="testImage" accept="image/*">
+            <label for="testImage" class="btn">Upload Image</label>
+            
+            <button onclick="detectImage()">Fetch Results</button>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script src="static\script.js"></script>
 </body>
 </html>
