@@ -37,7 +37,9 @@ function trainModel() {
             document.getElementById("trainingResults").innerHTML = `
             <p>Model trained successfully!</p>
             <p>Accuracy: ${data.accuracy}%</p>
-            <p>F1 Score: ${data.f1_score}</p>
+            <p>Precision: ${data.precision}%</p>
+            <p>Recall: ${data.recall}%</p>
+            <p>F1 Score: ${data.f1_score}%</p>
             <a href="/download_model" download>
                 <button>Download Model</button>
             </a>

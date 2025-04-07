@@ -7,7 +7,7 @@ from feature_extractor import FeatureExtractor
 from meta_learner import MetaLearner, train_model, predict
 from utils import save_model, load_model
 from flask import send_file
-
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads/"
@@ -43,17 +43,35 @@ def train():
 
     X = np.array(X)
     y = np.array(y)
+    
+    # Split data into train and test sets
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+    # Train Model
     model = MetaLearner()
     model = train_model(model, X, y, epochs=30, lr=0.001)
 
+    # Save trained model
     model_path = os.path.join(MODEL_FOLDER, "deepfake_model.pth")
     save_model(model, model_path)
+    
+    # Predict on test data
+    y_pred = predict(model, X_test)
+    
+    # Calculate evaluation metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+
 
     return jsonify({
         "message": "Model trained successfully!",
-        "accuracy": 95.3,  # Example static values
-        "f1_score": 94.7,
+        "accuracy": round(accuracy * 100, 2),
+        "precision": round(precision * 100, 2),
+        "recall": round(recall * 100, 2),
+        "f1_score": round(f1 * 100, 2),
         "model_download_url": "models/deepfake_model.pth"
     })
 
