@@ -19,7 +19,7 @@ class MetaLearner(nn.Module):
     def forward(self, x):
         return self.model(x)
 
-def train_model(model, X_train, y_train, epochs=20, lr=0.001):
+def train_model(model, X_train, y_train, epochs=25, lr=0.001):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 

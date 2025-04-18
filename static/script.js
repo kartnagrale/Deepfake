@@ -23,6 +23,11 @@ function trainModel() {
         alert("Please upload both real and fake images.");
         return;
     }
+    const resultsDiv = document.getElementById("trainingResults");
+    resultsDiv.innerHTML = `
+        <div class="loader"></div>
+        <p>Training model, please wait...</p>
+    `;
 
     let formData = new FormData();
     for (let img of realImages) formData.append("real_images", img);
@@ -34,7 +39,7 @@ function trainModel() {
     })
         .then(response => response.json())
         .then(data => {
-            document.getElementById("trainingResults").innerHTML = `
+            resultsDiv.innerHTML = `
             <p>Model trained successfully!</p>
             <p>Accuracy: ${data.accuracy}%</p>
             <p>Precision: ${data.precision}%</p>
@@ -45,7 +50,9 @@ function trainModel() {
             </a>
         `;
         })
-        .catch(error => alert("Error training model."));
+        .catch(error => {
+            resultsDiv.innerHTML = `<p>Error training model: ${error.message}</p>`;
+        });
 }
 
 // Detect Image
